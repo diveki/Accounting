@@ -9,20 +9,24 @@ Created on Sat Jan 20 15:01:15 2018
 import os
 import pandas as pd
 
-path = '.'
+
+path = '/home/diveki/Dropbox/Lakas/Konyveles/2017/'
 filename = 'Bevetel 2017.xlsx'
 filepath = os.path.join(path, filename)
-sheetName = 'HelloStreet'
-yearDate = '2017'
-monthDate = 'January'
-onlinePath=''
+sheetName = 'Bartok ter 9A, 15'
+yearDate = '2018'
+monthDate = 'February'
+onlinePath='1kivk-7e3c5Z_eCikSpwKwt8jloDATuFj3DwsD_KSTXo'
 
 subsetDate = yearDate + '-' + monthDate
 
 
 class Ingatlan:
     _addresses = {
-                'Bartok': 'HelloStreet',
+                'Bartok': 'Bartok ter 9A, 1/5',
+                'Tabor' : 'Tabor utca 7B 3/12',
+                'Rakoczi' : 'Garazs Rakoczi B71',
+                'Csillagter' : 'Budapesti krt 4b 5/19'
                 }
     def __init__(self, pid):
         self.pid = pid
@@ -52,6 +56,7 @@ class Szamla:
         self.tenant = berlok
         self.address = address
         self.data = data
+        self.text=''
     def getBills(self, colname = 'Bevetel leirasa', tenancyfee = 'Berleti dij'):
         tmp = self.data.loc[self.data[colname] != tenancyfee]
         return tmp.groupby(colname)[["Osszeg (Ft)"]].sum()
@@ -83,7 +88,6 @@ class Szamla:
         self.szamla = pd.concat([self.szamla, berlet])
     def printSzamla(self, name):
         for person in name:
-            print(person)
             bill = self.getTenantSzamla(person)
             text = "\n\nSzamla %s reszere\n" % person
             text = text + "-" * 40 + '\n'
@@ -96,9 +100,7 @@ class Szamla:
             text = text + "-" * 40 + '\n'
             text = text + '%-15s \t\t %15s Ft\n\n' % ('TOTAL:', bill['Osszeg (Ft)'].sum())
                 #text = text + '** ' + item + '\t\t' + str(val[0]) + ' Ft\n' 
-            
-            print(text)
-            
+        self.text = text
 
 class SheetLoader():
     """
@@ -106,7 +108,7 @@ class SheetLoader():
     id = Bartok, Tabor, Rakoczi, Csillagter
     """
     def __init__(self, ingatlan, year = 2017, month = 'March', source = 'offline', sourcePath = '', columns = ['Ingatlan', 'Bevetel leirasa', 'Befizeto neve', 'Osszeg (Ft)']):
-        self.date = str(year) + '-' + month        
+        self.date = str(year) + '-' + month    
         self.data = self.loadData(ingatlan, source, sourcePath)
         self.subset = self.subSetData(columns)
     def loadData(self, ing, src, srcPath):
@@ -126,19 +128,15 @@ class SheetLoader():
                 print('Bad filepath')
         return data1
     def subSetData(self, cols):
-        print('hello')
         return self.data[self.date][cols]
         
         
 if __name__ == '__main__':
-    ing = Ingatlan('Bartok')
-    datash = SheetLoader(ing, source = 'offline', sourcePath = onlinePath, year=yearDate, month=monthDate)
-#    datash = SheetLoader(ing, source = 'offline', sourcePath = filepath, year=yearDate, month=monthDate)
+    ing = Ingatlan('Tabor')
+    datash = SheetLoader(ing, source = 'online', sourcePath = onlinePath, year=yearDate, month=monthDate)
     ing.getTenants(datash.subset)
     berlok = [Berlo(ing.address, name) for name in ing.tenants]
     for person in berlok:
         person.getSzamla(ing.tenants, datash.subset)
         person.printSzamla()
-#    sz.createSzamla()
-#    sz.printSzamla()    
                     

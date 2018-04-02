@@ -58,14 +58,15 @@ def get_credentials():
         print('Storing credentials to ' + credential_path)
     return credentials
 
-def getOnlineData(spreadID='',
-                  sheetID = ''):
+def getOnlineData(spreadID='1kivk-7e3c5Z_eCikSpwKwt8jloDATuFj3DwsD_KSTXo',
+                  sheetID = 'Bartok ter 9A, 1/5'):
     """Shows basic usage of the Sheets API.
 
     Creates a Sheets API service object and prints the names and majors of
     students in a sample spreadsheet:
     https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
     """
+ #   import pdb
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
@@ -79,6 +80,7 @@ def getOnlineData(spreadID='',
     spreadsheetId = spreadID
 #    rangeName = 'Class Data!A2:E'
     rangeName = sheetID + '!D1:H'
+   # pdb.set_trace()
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
     values = result.get('values', [])
