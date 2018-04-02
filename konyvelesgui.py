@@ -15,7 +15,8 @@ onlinePath={'2018':'1kivk-7e3c5Z_eCikSpwKwt8jloDATuFj3DwsD_KSTXo',
             '2017':'1sgOmKyfbrZUvBuwI1STE47XCksK7h4PQ5Hmibe-0-ps',
             '2016':'1m1MyT_x2dui3RPc8EZEBFMkCQwHXEty4N3VRKOKsmMs'
         }
-localPath={'2017':'Bevetel 2017.xlsx'
+localPath={'2017':'Bevetel 2017.xlsx',
+           '2016':'Bevetel2016.xlsx'
        }
 
 startYear = '2017'
