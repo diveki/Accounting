@@ -31,7 +31,7 @@ SheetLoader - this class is responsible for loading the sheets either from hard 
 GUI USAGE:
 #####################
 
-Run konyvelesgui.py to start the GUI interface of the accounting program. You can adjust the input values like the Year, Month, Code name of the appartement and whether you want to retrieve the data from online (google sheet) or hard disk. After setting these parameters up, you can choose the name of the tenant and press Run to get the corresponding bill description.
+Run konyvelesgui.py to start the GUI interface of the accounting program. You can adjust the input values like the Year, Month, Code name of the appartement and whether you want to retrieve the data from online (google sheet) or hard disk. After setting these parameters up, you can choose the name of the tenant and press Run to get the corresponding bill description. run_pressed.png and startup_image.png are to image cuts of the GUI interface.
 
 PRE-SETUP:
 In konyvelesgui.py preset:
